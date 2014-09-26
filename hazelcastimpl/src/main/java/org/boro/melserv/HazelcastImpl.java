@@ -10,7 +10,7 @@ import com.hazelcast.core.ILock;
 /**
  * The Basic Implementation based on Hazelcast and lock-driven approach
  */
-public class HazelcastImpl{
+class HazelcastImpl{
 
     private static final Logger logger = LoggerFactory.getLogger(HazelcastImpl.class);
     private static final String HAZLECAST_SERVICE_LOCK = "distributed_lock";

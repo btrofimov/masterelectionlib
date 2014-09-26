@@ -1,6 +1,6 @@
 package org.boro.melserv;
 
-class MELEngine {
+public class MELEngine {
   private MELEngine(HazelcastImpl hazelcastImpl){
       this.hazelcastImpl = hazelcastImpl;
   }
