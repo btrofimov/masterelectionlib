@@ -1,0 +1,2 @@
+rootProject.name = 'master-election-lib'
+include 'mainlib','hazelcastimpl','hazelcastimpl2','fakeimpl'
