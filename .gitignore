@@ -2,6 +2,7 @@
 *.log
 bin
 target
+build
 .settings
 .project
 .cache
@@ -9,9 +10,10 @@ target
 .idea/
 .idea_modules/
 
-# sbt specific
+# sbt and gradle specific
 dist/*
 target/
+build/
 lib_managed/
 src_managed/
 project/boot/

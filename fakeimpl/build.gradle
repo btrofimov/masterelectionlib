@@ -1,19 +1,6 @@
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 
-project.group = 'org.boro.mel'
-
-ext {
-  javaVersionCompliance = '1.7'
-}
-
-sourceCompatibility = "${javaVersionCompliance}"
-targetCompatibility = "${javaVersionCompliance}"
-
-configurations {
-    provided
-    compile.extendsFrom provided
-}
 
 // In this section you declare where to find the dependencies of your project
 repositories {

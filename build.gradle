@@ -5,13 +5,16 @@ allprojects {
     project.group = 'org.boro'
 
     ext {
-        versionProject = '1.6'
+        versionProject = '0.1'
 
         javaVersionCompliance = '1.7'
 
         junitVersion = '4.11'
         mockitoVersion = '1.9.5'
     }
+
+    sourceCompatibility = "${javaVersionCompliance}"
+    targetCompatibility = "${javaVersionCompliance}"
 
     repositories {
         // Use 'maven central' for resolving your dependencies.
