@@ -17,6 +17,7 @@ import java.util.*;
  */
 class HazelcastImpl{
 
+    private static final Logger logger = LoggerFactory.getLogger(HazelcastImpl.class);
 
     private byte[] getFirstNetworkInterface(){
         try {
@@ -52,53 +53,79 @@ class HazelcastImpl{
         return getMD5(getFirstNetworkInterface());
     }
 
-    private static final Logger logger = LoggerFactory.getLogger(HazelcastImpl.class);
+
+
+    /**
+     *
+     */
     private static final String HAZLECAST_SERVICE_MAP1 = "distributed_map1";
+
+    /**
+     *
+     */
     private static final String HAZLECAST_SERVICE_MAP2 = "distributed_map2";
 
-
+    /**
+     *
+     */
     private Thread nodeThread;
+    /**
+     *
+     */
     private int masterSleepTime = 5;
+    /**
+     *
+     */
     HazelcastInstance hazelcastInstance;
+    /**
+     *
+     */
     String id;
+    /**
+     *
+     */
     String masterId;
+
+    long startTime;
+
     public HazelcastImpl(HazelcastInstance hazelcastInstance, int masterSleepTime){
         this.masterSleepTime = masterSleepTime;
         this.hazelcastInstance = hazelcastInstance;
         this.id = getUniqueID();
+        this.startTime = (new Date()).getTime();
         init();
     }
 
-
-    private void initializeHAzelcastEntryPoint(){
-        long now = (new Date()).getTime();
+    private void initializeHazelcastEntryPoint(){
         final Map<String, Long> map1 = hazelcastInstance.getMap(HAZLECAST_SERVICE_MAP1);
-        map1.put(id, now);
-        final Map<String, Long> map2 = hazelcastInstance.getMap(HAZLECAST_SERVICE_MAP1);
+        map1.put(id, startTime);
+        final Map<String, Long> map2 = hazelcastInstance.getMap(HAZLECAST_SERVICE_MAP2);
+
+        // update keep alive date for this node
+        long now = (new Date()).getTime();
         map2.put(id, now);
     }
 
     private void init(){
-        initializeHAzelcastEntryPoint();
 
         nodeThread = new Thread(new Runnable() {
     	@Override
     	public void run() {
     	    while(!Thread.currentThread().isInterrupted()){
     		try {
+
+                initializeHazelcastEntryPoint();
+
                 final Map<String, Long> map1 = hazelcastInstance.getMap(HAZLECAST_SERVICE_MAP1);
                 final Map<String, Long> map2 = hazelcastInstance.getMap(HAZLECAST_SERVICE_MAP2);
 
                 long now = (new Date()).getTime();
 
-                /// update keep alive date for this node
-                map2.put(id, now);
-
                 List<String> deadNodes = new LinkedList<String>();
                 //clean up dead nodes
                 for( String i : map2.keySet()){
                     Long val = map2.get(i);
-                    if( now - val > masterSleepTime * 60 * 1000)
+                    if( (now - val) > (masterSleepTime * 2 * 1000))
                         deadNodes.add(i);
                 }
                 for(String i : deadNodes){
@@ -106,7 +133,7 @@ class HazelcastImpl{
                     map2.remove(i);
                 }
 
-                //elect master id assuming that all nodes in cache are alive
+                //elect master assuming that all nodes in cache are alive
                 String eldestNodeId = null;
                 Long eldestNodeVal = null;
                 for( String i : map1.keySet()){
@@ -121,7 +148,7 @@ class HazelcastImpl{
                 // update internal cache field with just elected eldest node
                 masterId = eldestNodeId;
 
-                Thread.sleep(masterSleepTime * 60 * 1000);
+                Thread.sleep(masterSleepTime * 1000);
 	    	}catch (InterruptedException e) {
 	    	    logger.info("InterruptedException. Exiting cycle");
 	    	    Thread.currentThread().interrupt();

@@ -1,8 +1,11 @@
 package org.boro.melserv;
+
+import java.util.Map;
+
 class MELEngine {
   private MELEngine(){}
 
-  public static MELEngine runInstance(){
+  public static MELEngine runInstance(Map<String,Object> params){
       return null;
   }
   
