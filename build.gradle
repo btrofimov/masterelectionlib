@@ -1,0 +1,25 @@
+allprojects {
+    apply plugin: 'application'
+    apply plugin: 'idea'
+
+    project.group = 'org.boro'
+
+    ext {
+        versionProject = '1.6'
+
+        javaVersionCompliance = '1.7'
+
+        junitVersion = '4.11'
+        mockitoVersion = '1.9.5'
+    }
+
+    repositories {
+        // Use 'maven central' for resolving your dependencies.
+        // You can declare any Maven/Ivy/file repository here.
+        mavenCentral()
+    }
+    task wrapper(type: Wrapper) {
+        gradleVersion = '1.12'
+    }
+
+}

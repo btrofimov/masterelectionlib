@@ -1,0 +1,31 @@
+project.version = "${versionProject}"
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+ext { 
+  hazelcastVersion='3.2.5'
+  slf4jVersion='1.5.10'
+}
+dependencies {
+
+    compile("com.hazelcast:hazelcast:${hazelcastVersion}")
+    compile("org.slf4j:slf4j-api:${slf4jVersion}")
+
+    testCompile("junit:junit:${junitVersion}")
+    testCompile("org.mockito:mockito-all:${mockitoVersion}")
+
+}
+
+test {
+  minHeapSize = "1G"
+  maxHeapSize = "4G"
+}
+
+jar {
+    // If you let all the META-INF/ stuff from the dependency jars in it clobbers our own manifest, among other things
+    // and generally makes things not work
+    from { (configurations.compile - configurations.provided).collect { it.isDirectory() ? it : zipTree(it).matching { exclude 'META-INF/**' } } }
+}
