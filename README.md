@@ -8,7 +8,7 @@ JMS and Zookeeper engines will be added soon.
 ## Integration
 The integration with hosted application is similar to slf4j (adding core lib and corresponding dependency-engine):
 ```
-compile("org.boro.melserv:melserv:0.1")
+compile("org.boro.melserv:melcore:0.1")
 compile("org.boro.melserv:hazelcastimpl2:0.1")
 ```
 
