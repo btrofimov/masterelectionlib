@@ -21,7 +21,7 @@ service.isMaster();
 
 ## Customization
 For some implementation engines like Hazelcast sometimes there is need to use external HazelcastInstance object.
-For this purpose it is possible to override HazelcastFactory method:
+For this purpose it is possible to call HazelcastFactory method with own implementation of HazelcastFactory:
 ```
-MELEngine.setHazelcastFactory()
+MELEngine.setHazelcastFactory(...)
 ```
