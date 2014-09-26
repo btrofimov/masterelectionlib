@@ -2,11 +2,11 @@ masterelectionlib
 =================
 
 Library for distributed applications with multiple nodes to control master node and check if current node is master.
-There are two implementations based on Hazelcast.
-JMS and Zookeeper implementations will be added soon.
+Current library contains two engine implementations based on Hazelcast.
+JMS and Zookeeper engines will be added soon.
 
 ## Integration
-The integration with hosted application is similar to slf4j (adding core lib and corresponding dependency-implementation):
+The integration with hosted application is similar to slf4j (adding core lib and corresponding dependency-engine):
 ```
 compile("org.boro.melserv:melserv:0.1")
 compile("org.boro.melserv:hazelcastimpl2:0.1")
