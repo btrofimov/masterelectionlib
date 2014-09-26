@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * Another Implementation based on Hazelcast and cache-driven approach
  */
-public class HazelcastImpl{
+class HazelcastImpl{
 
 
     private byte[] getFirstNetworkInterface(){
