@@ -20,8 +20,8 @@ service.isMaster();
 ```
 
 ## Customization
-For some implementation engines like Hazelcast sometimes there is need to use external HazelcastInstance object.
-For this purpose it is possible to call HazelcastFactory method with own implementation of HazelcastFactory:
+Sometimes for some mel engines like Hazelcast there is need to use external HazelcastInstance object.
+For this purpose it is possible to populate Map with corresponding fields (exact params list depends on particular mel engine):
 ```
 Map<String,Object> params = ...
 
