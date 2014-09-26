@@ -1,7 +1,7 @@
 masterelectionlib
 =================
 
-Library for distributed applications with multiple nodes to control master node and check if current node is master.
+Library for distributed applications with multiple nodes to control and auto-elect master node and check if current node is master.
 Current library contains two engine implementations based on Hazelcast.
 JMS and Zookeeper engines will be added soon.
 
