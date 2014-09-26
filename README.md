@@ -23,5 +23,10 @@ service.isMaster();
 For some implementation engines like Hazelcast sometimes there is need to use external HazelcastInstance object.
 For this purpose it is possible to call HazelcastFactory method with own implementation of HazelcastFactory:
 ```
-MELEngine.setHazelcastFactory(...)
+Map<String,Object> params = ...
+
+params.put(HAZELCAST_INSTANCE, new Hazelcast.getHazelcastInstance());
+params.put(THREAD_DELAY, 5);
+
+MELService service = new MELService(params);
 ```
