@@ -72,6 +72,7 @@ class HazelcastImpl{
 	    nodeThread.interrupt();
 	    try {
 	        nodeThread.join();
+            logger.info("Thread joined properly.");
 	    } catch (InterruptedException e) {
 	        logger.error("Thread not joined properly. {}", e);
     	}

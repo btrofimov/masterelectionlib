@@ -5,7 +5,7 @@ allprojects {
     project.group = 'org.boro'
 
     ext {
-        versionProject = '0.1'
+        versionProject = '0.1-beta'
 
         javaVersionCompliance = '1.7'
 

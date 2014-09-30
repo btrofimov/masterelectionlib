@@ -8,20 +8,19 @@ import java.util.Map;
  */
 public class MELService {
 
-    Map<String,Object> params;
-
     public MELService(Map<String,Object> params){
-        this.params = params;
+        engine = MELEngine.runInstance(params);
     }
 
     public MELService(){
-        this.params = Collections.emptyMap();
+        Map<String,Object> params = Collections.emptyMap();
+        engine = MELEngine.runInstance(params);
     }
 
     /**
      *
      */
-    MELEngine engine = MELEngine.runInstance(params);
+    final MELEngine engine;
 
     /**
      *
