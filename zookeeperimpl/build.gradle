@@ -1,0 +1,40 @@
+project.version = "${versionProject}"
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url "https://repository.cloudera.com/artifactory/cloudera-repos"
+    }
+}
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+ext { 
+  zkVersion='3.4.5-cdh5.1.2'
+  slf4jVersion='1.5.10'
+}
+dependencies {
+
+    compile("org.slf4j:slf4j-api:${slf4jVersion}")
+    compile( "org.apache.zookeeper:zookeeper:${zkVersion}")
+
+    testCompile("junit:junit:${junitVersion}")
+    testCompile("org.mockito:mockito-all:${mockitoVersion}")
+
+}
+
+test {
+  minHeapSize = "1G"
+  maxHeapSize = "4G"
+}
+
+jar {
+    // If you let all the META-INF/ stuff from the dependency jars in it clobbers our own manifest, among other things
+    // and generally makes things not work
+    from { (configurations.compile - configurations.provided).collect { it.isDirectory() ? it : zipTree(it).matching { exclude 'META-INF/**' } } }
+}
