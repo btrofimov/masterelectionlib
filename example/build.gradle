@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "http://clojars.org/repo" }
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+project.version = "${versionProject}"
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+dependencies {
+
+    compile project (":hazelcastimpl2")
+    compile project (":melcore")
+    compile("org.slf4j:slf4j-api:1.5.10")
+    compile("org.slf4j:slf4j-log4j12:1.5.10")
+    compile("log4j:log4j:1.2.17")
+
+
+    testCompile("junit:junit:${junitVersion}")
+    testCompile("org.mockito:mockito-all:${mockitoVersion}")
+
+}
+
+
+
+//jar {
+//    // If you let all the META-INF/ stuff from the dependency jars in it clobbers our own manifest, among other things
+//    // and generally makes things not work
+//    from { (configurations.compile - configurations.provided).collect { it.isDirectory() ? it : zipTree(it).matching { exclude 'META-INF/**' } } }
+//}
